@@ -15,6 +15,7 @@ dev-dependencies = [
     "coverage>=7.6.1",
     "deptry>=0.20.0",
     "mypy>=1.11.2",
+    "pytest-cov>=5.0.0",
     "pytest>=8.3.3",
     "ruff>=0.6.8",
 ]
@@ -44,7 +45,7 @@ skip_covered = true
 # Anything under 100% code coverage means you can be lazy for a few features, then you're back to trying to keep it
 # higher than the threshold. So IMHO set the `fail_under` threshold to `100`, or don't bother with it. The coverage
 # exclusion rules provide some sane definitions of untestable code, and allow developer overrides.
-fail_under = 0
+fail_under = 100
 exclude_lines = [
     # Allow developers to manually specify untestable code.
     "pragma: no cover",
