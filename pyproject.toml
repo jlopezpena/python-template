@@ -1,0 +1,19 @@
+[project]
+name = "python-template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "deptry>=0.20.0",
+    "mypy>=1.11.2",
+    "pytest>=8.3.3",
+    "ruff>=0.6.8",
+]
