@@ -1,7 +1,7 @@
 # Verify that our module can be installed...
 
 
-def test_import():
+def test_import() -> None:
     try:
         import python_template
 

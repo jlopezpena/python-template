@@ -66,6 +66,7 @@ exclude_lines = [
 ]
 
 [tool.mypy]
+mypy_path = "src"
 strict = true
 # We deploy to linux, so need to allow things like unix domain sockets.
 platform = "linux"
@@ -79,7 +80,7 @@ allow_redefinition = true
 # Ignore missing imports for 3rd-party libraries that don't publish type information.
 [[tool.mypy.overrides]]
 module = [
-    # "sklearn.*",
+    "sklearn.*",
 ]
 ignore_missing_imports = true
 
