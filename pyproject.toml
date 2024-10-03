@@ -64,7 +64,7 @@ exclude_lines = [
     "def __repr__",
 ]
 
-tool.mypy]
+[tool.mypy]
 strict = true
 # We deploy to linux, so need to allow things like unix domain sockets.
 platform = "linux"
