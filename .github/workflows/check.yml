@@ -42,10 +42,16 @@ jobs:
 
       - name: Format checks
         run: uv run ruff format --check .
+      
+      - name: Dependency checks
+        run: uv run deptry .
 
       - name: Mypy checks
         run: uv run mypy .
 
       - name: Run tests
         run: uv run pytest tests
+
+      - name: Test coverate
+        run: uv run coverage report -m
 
