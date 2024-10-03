@@ -12,8 +12,104 @@ build-backend = "hatchling.build"
 
 [tool.uv]
 dev-dependencies = [
+    "coverage>=7.6.1",
     "deptry>=0.20.0",
     "mypy>=1.11.2",
     "pytest>=8.3.3",
     "ruff>=0.6.8",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "PD", "UP", "C4"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ra"]
+
+[tool.coverage.run]
+source = ["src", "tests"]
+relative_files = true
+# Enabling multiprocessing concurrency allows subprocesses to "just work", and they're common in our codebases.
+concurrency = ["multiprocessing", "thread"]
+# The `no-data-collected` warning triggers if no tests are selected, which just adds to terminal noise.
+disable_warnings = ["no-data-collected"]
+
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+# Anything under 100% code coverage means you can be lazy for a few features, then you're back to trying to keep it
+# higher than the threshold. So IMHO set the `fail_under` threshold to `100`, or don't bother with it. The coverage
+# exclusion rules provide some sane definitions of untestable code, and allow developer overrides.
+fail_under = 0
+exclude_lines = [
+    # Allow developers to manually specify untestable code.
+    "pragma: no cover",
+    # Can't test type checking code.
+    "if TYPE_CHECKING:",
+    "@overload",
+    "^\\s+\\.\\.\\.\\s*$",
+    # Allow conditional imports to remain untested.
+    "except ImportError",
+    # Allow defensive assertions to remain untested.
+    "raise NotImplementedError",
+    "raise AssertionError",
+    "assert False",
+    # Allow "uncatchable everything went wrong" errors to remain untested.
+    "raise RuntimeError",
+    # Allow debugging code to remain untested.
+    "def __repr__",
+]
+
+tool.mypy]
+strict = true
+# We deploy to linux, so need to allow things like unix domain sockets.
+platform = "linux"
+# Allow namespace packages to work.
+explicit_package_bases = true
+# Better reporting.
+show_column_numbers = true
+# This doesn't harm strictness, and allows reuse of variable names, which is nice. :)
+allow_redefinition = true
+
+# Ignore missing imports for 3rd-party libraries that don't publish type information.
+[[tool.mypy.overrides]]
+module = [
+    # "sklearn.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["docs", "tests"]
+# The "classic" output plays nicer with CI.
+console_output_style = "classic"
+# The native traceback style is less noisy. YMMV.
+# Support doctests.
+addopts = "--show-capture stdout --tb native --doctest-glob='*.rst' --doctest-modules --import-mode=importlib"
+
+[tool.deptry]
+exclude = [
+    # Default exclusions
+    "node_modules",
+    "venv",
+    ".venv",
+    ".direnv",
+    "tests",
+    ".git",
+    # Additional exclusions
+    ".zen",
+    ".ruffcache",
+    ".github",
+    "scratch",
+]
+
+[tool.deptry.per_rule_ignores]
+DEP002 = [
+    "setuptools",
+]
+
+DEP004 = [
 ]
