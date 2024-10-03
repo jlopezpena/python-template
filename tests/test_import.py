@@ -5,6 +5,7 @@ def test_import():
     try:
         import python_template
 
-        assert True
+        assert python_template is not None
+
     except ImportError:
         assert False
