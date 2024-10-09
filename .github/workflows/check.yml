@@ -52,7 +52,7 @@ jobs:
         run: uv run mypy src
 
       - name: Run tests
-        run: uv run pytest tests --cov=test_coverage
+        run: uv run pytest tests --cov=python_template --cov-fail-under=0
 
       - name: Test coverage
         run: uv run coverage report -m
