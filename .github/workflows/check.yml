@@ -49,10 +49,10 @@ jobs:
         run: uv run deptry .
 
       - name: Mypy checks
-        run: uv run mypy .
+        run: uv run mypy src
 
       - name: Run tests
-        run: uv run pytest tests
+        run: uv run pytest tests --cov=test_coverage
 
       - name: Test coverage
         run: uv run coverage report -m
