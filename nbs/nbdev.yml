@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "skillcorner-ingestor"
+  site-url: "https://real-analytics-rd.github.io/skillcorner-ingestor"
+  description: ""
+  repo-branch: main
+  repo-url: "https://github.com/real-analytics-rd/skillcorner-ingestor"
