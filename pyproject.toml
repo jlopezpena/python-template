@@ -147,7 +147,7 @@ _nb_test = "uv run nbdev_test"
 _nb_export = "uv run nbdev_export"
 _nb_readme = "uv run nbdev_readme"
 # Pytest
-_pytest = "uv run pytest tests --cov=ra --cov-fail-under=0"
+_pytest = "uv run pytest tests --cov=jlp --cov-fail-under=0"
 # Linting
 _ruff = "uv run ruff check --output-format=concise"
 _check_format = "uv run ruff format --diff"
