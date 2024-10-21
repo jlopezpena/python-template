@@ -6,7 +6,7 @@ d = {
         "doc_baseurl": "/python-template",
         "doc_host": "https://jlopezpena.github.io",
         "git_url": "https://github.com/jlopezpena/python-template",
-        "lib_path": "src/jlp/python-template",
+        "lib_path": "src/jlp/python_template",
     },
-    "syms": {},
+    "syms": {"python_template.hello": {}},
 }
