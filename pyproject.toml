@@ -43,7 +43,7 @@ output-format = "concise"  # Works better for CI
 select = ["E", "F", "W", "I", "PD", "PERF", "UP", "C4"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["ra"]
+known-first-party = ["jlp"]
 
 [tool.coverage.run]
 source = ["src", "tests"]
