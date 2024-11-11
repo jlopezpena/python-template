@@ -77,7 +77,7 @@ guide](https://docs.astral.sh/uv/getting-started/installation/).
 1.  Clone the repository by running
 
     ``` sh
-    git clone git@github.com:real-analytics-rd/python-template.git
+    git clone git@github.com:jlopezpena/python-template.git
     ```
 
 2.  Go inside the folder containing the cloned repository, and run
