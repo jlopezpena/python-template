@@ -1,4 +1,4 @@
-from jlp.python_template.hello import say_hi
+from ra.python_template.hello import say_hi
 
 
 def test_dummy() -> None:
