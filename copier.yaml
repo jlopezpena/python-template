@@ -1,0 +1,91 @@
+_min_copier_version: "9.0.0"
+_version: "0.1.0"
+
+# Exclude generated or environment-specific artifacts from copy/update
+_exclude:
+  - "uv.lock"
+  - "index_files/"
+  - "src/**/_modidx.py"
+  - ".venv/"
+  - ".mypy_cache/"
+  - ".ruff_cache/"
+  - "_proc/"
+  - ".coverage*"
+
+# Post-copy tasks to initialize the project environment
+_tasks:
+  - "uv sync --all-extras --dev"
+  - "{% if use_nbdev %}uv run nbdev_export && uv run nbdev_readme{% endif %}"
+
+project_name:
+  type: str
+  help: "Human-friendly project name"
+  default: "My Python Project"
+
+repo_name:
+  type: str
+  help: "Repository slug (GitHub repo)"
+  default: "{{ project_name|lower|replace(' ', '-') }}"
+
+package_namespace:
+  type: str
+  help: "Top-level namespace (leave blank for none)"
+  default: "jlp"
+
+package_name:
+  type: str
+  help: "Main package/module name"
+  default: "{{ repo_name|replace('-', '_') }}"
+
+description:
+  type: str
+  default: "Add your awesome description here"
+
+author_name:
+  type: str
+  default: "Your Name"
+
+author_email:
+  type: str
+  default: "you@example.com"
+
+github_user:
+  type: str
+  default: "{{ author_name|lower|replace(' ', '') }}"
+
+license:
+  type: str
+  choices:
+    - MIT
+    - Apache-2.0
+    - BSD-3-Clause
+    - Proprietary
+  default: MIT
+
+min_python_version:
+  type: str
+  default: "3.12"
+
+ci_python_versions:
+  type: json
+  default: ["3.12"]
+
+use_nbdev:
+  type: bool
+  default: true
+
+use_devcontainer:
+  type: bool
+  default: true
+
+include_dependabot:
+  type: bool
+  default: true
+
+add_example_module:
+  type: bool
+  default: true
+
+enforce_coverage_100:
+  type: bool
+  default: true

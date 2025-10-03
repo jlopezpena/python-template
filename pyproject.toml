@@ -1,13 +1,13 @@
 [project]
-name = "python-template"
-version = "0.1.0"
-description = "Add your awesome description here"
+name = "python-template"  # TEMPLATE: {{ repo_name }}
+version = "0.1.0"  # Managed manually
+description = "Add your awesome description here"  # TEMPLATE: {{ description }}
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = []
+requires-python = ">=3.12"  # TEMPLATE: >={{ min_python_version }}
+dependencies = []  # TEMPLATE: runtime deps
 
 [project.urls]
-repository = "https://github.com/jlopezpena/python-template"
+repository = "https://github.com/jlopezpena/python-template"  # TEMPLATE: https://github.com/{{ github_user }}/{{ repo_name }}
 documentation = "https://github.com/jlopezpena/python-template"
 homepage = "https://github.com/jlopezpena/python-template"
 
@@ -16,7 +16,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/jlp"]
+packages = ["src/jlp"]  # TEMPLATE: if no namespace -> ["src/{{ package_name }}"]
 
 [tool.uv]
 dev-dependencies = [
@@ -30,7 +30,6 @@ dev-dependencies = [
     "pytest>=8.3.3",
     "ruff>=0.6.8",
     "setuptools>=75.2.0",
-    # Needed by `nbdev`, but undeclared
 ]
 
 [tool.ruff]
@@ -56,10 +55,7 @@ disable_warnings = ["no-data-collected", ]
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
-# Anything under 100% code coverage means you can be lazy for a few features, then you're back to trying to keep it
-# higher than the threshold. So IMHO set the `fail_under` threshold to `100`, or don't bother with it. The coverage
-# exclusion rules provide some sane definitions of untestable code, and allow developer overrides.
-fail_under = 100
+fail_under = 100  # TEMPLATE: adjust via enforce_coverage_100
 exclude_lines = [
     # Allow developers to manually specify untestable code.
     "pragma: no cover",
@@ -101,10 +97,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["docs", "tests"]
-# The "classic" output plays nicer with CI.
 console_output_style = "classic"
-# The native traceback style is less noisy. YMMV.
-# Support doctests.
 addopts = "--show-capture stdout --tb native --doctest-glob='*.rst' --doctest-modules --import-mode=importlib"
 
 [tool.deptry]
