@@ -18,8 +18,9 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/jlp"]  # TEMPLATE: if no namespace -> ["src/{{ package_name }}"]
 
-[tool.uv]
-dev-dependencies = [
+# Modern uv configuration (replaces deprecated [tool.uv.dev-dependencies])
+[dependency-groups]
+dev = [
     "coverage>=7.6.1",
     "deptry>=0.20.0",
     "ipykernel>=6.29.5",
@@ -31,6 +32,10 @@ dev-dependencies = [
     "ruff>=0.6.8",
     "setuptools>=75.2.0",
 ]
+
+# TEMPLATE: If separating concerns, you could split nbdev-only tooling:
+# nbdev = ["ipykernel>=6.29.5", "nbdev>=2.3.31", "nbqa>=1.9.0"]
+# and then sync with: uv sync --group dev --group nbdev
 
 [tool.ruff]
 line-length = 120
