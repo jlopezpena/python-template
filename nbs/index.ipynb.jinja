@@ -1,0 +1,49 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {"language": "markdown"},
+      "source": [
+        "# {{ project_name }}\n",
+        "\n",
+        "<!-- This notebook is the authoritative source for the README when nbdev is enabled. -->\n",
+        "\n",
+        "{% include 'template_parts/readme_common.md.jinja' %}\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {"language": "markdown"},
+      "source": [
+        "## nbdev Notes\n",
+        "This section is only present when nbdev is enabled.\n",
+        "- Edit this notebook, then run: `uv run nbdev_readme` to regenerate the README.\n",
+        "- Use `uv run nbdev_export` to sync code from notebooks to the library.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {"language": "python"},
+      "source": [
+        "# Quick smoke test (safe to remove)\n",
+        "try:\n",
+        "    from {{ package_namespace }}.{{ package_name }}.hello import say_hi  # type: ignore\n",
+        "    print(say_hi('notebook'))\n",
+        "except Exception as e:\n",
+        "    print('Example module not available:', e)\n"
+      ]
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python" 
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

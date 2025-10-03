@@ -1,0 +1,117 @@
+<!-- COMMON README CONTENT (single source of truth). Edit this file only. -->
+
+## 📝 Developer Guide
+
+This project is managed with [`uv`](https://docs.astral.sh/uv/){% if use_nbdev %} and [`nbdev`](https://nbdev.fast.ai/){% endif %}.
+
+### 🧩 Settings & Configuration
+
+Core configuration lives in `pyproject.toml` (dependencies, tooling). {% if use_nbdev %}Notebook/export settings live in `settings.ini` and notebooks under `nbs/`.{% else %}No `nbdev` integration was selected, so there is no `settings.ini` file.{% endif %}
+
+### 🛠️ Tooling
+
+- [`uv`](https://docs.astral.sh/uv/) for dependency & environment management
+- [`ruff`](https://docs.astral.sh/ruff/) for linting/formatting
+- [`pytest`](https://docs.pytest.org/) + [`coverage`](https://coverage.readthedocs.io/) for tests
+- [`mypy`](https://www.mypy-lang.org/) for type checking
+- [`deptry`](https://deptry.com/) for dependency hygiene
+- [`Poe`](https://poethepoet.natn.io/) as task runner
+{% if use_nbdev %}- [`nbdev`](https://nbdev.fast.ai/) for literate programming & docs
+- [`nbQA`](https://nbqa.readthedocs.io/) for notebook QA
+{% endif %}
+
+### 🚀 Quick Start
+
+Clone & sync:
+```sh
+git clone git@github.com:{{ github_user }}/{{ repo_name }}.git
+cd {{ repo_name }}
+uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}
+```
+
+Run checks:
+```sh
+uv run poe check
+```
+
+Run tests:
+```sh
+uv run poe test
+```
+
+Format code & notebooks:
+```sh
+uv run poe format
+```
+
+### 📦 Managing Dependencies
+
+Add runtime dependency:
+```sh
+uv add requests
+```
+
+Add dev-only dependency:
+```sh
+uv add --group dev rich
+```
+{% if use_nbdev %}Add nbdev-only tool:
+```sh
+uv add --group nbdev jupyterlab
+```
+{% endif %}
+Upgrade one package:
+```sh
+uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %} --upgrade-package requests
+```
+
+Upgrade all:
+```sh
+uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %} --upgrade
+```
+
+### ⚙️ Tasks (Poe)
+
+List tasks:
+```sh
+uv run poe
+```
+
+Key tasks:
+- `check` – lint, type, deps
+- `format` – format notebooks (if any) + sources
+- `test` – run notebook tests (if nbdev) + pytest
+- `sync` – export/readme (nbdev), format, lock refresh, cleanup
+
+### ✨ Usage
+
+{% if add_example_module %}Example:
+```python
+from {{ package_namespace }}.{{ package_name }} import hello  # or direct import of symbols
+from {{ package_namespace }}.{{ package_name }}.hello import say_hi
+print(say_hi("world"))
+```
+{% else %}Add modules under `src/` and expose them via the package `__init__.py`.
+{% endif %}
+
+### 🔄 Updating Template (Descendant Projects)
+
+If this project was created from the template, pull upstream template changes with:
+```sh
+copier update
+```
+Resolve any merge conflicts, then re-run:
+```sh
+uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}
+```
+
+### 🧪 Coverage
+
+Target coverage threshold: {% if enforce_coverage_100 %}100% (strict mode){% else %}configurable (strict mode disabled){% endif %}.
+
+### 📄 License
+
+Licensed under {{ license }}.
+
+---
+_Generated from a unified partial (`template_parts/readme_common.md.jinja`)._

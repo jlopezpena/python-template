@@ -1,5 +1,6 @@
 _min_copier_version: "9.0.0"
 _version: "0.1.0"
+_templates_suffix: ".jinja"
 
 # Exclude generated or environment-specific artifacts from copy/update
 _exclude:
@@ -16,6 +17,7 @@ _exclude:
 _tasks:
   - "uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}"
   - "{% if use_nbdev %}uv run nbdev_export && uv run nbdev_readme{% endif %}"
+  - "{% if not use_nbdev %}rm -f settings.ini{% endif %}"
 
 project_name:
   type: str
