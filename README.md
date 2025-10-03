@@ -83,7 +83,11 @@ guide](https://docs.astral.sh/uv/getting-started/installation/).
 2.  Go inside the folder containing the cloned repository, and run
 
     ``` sh
-  uv sync  --all-extras
+  # Core dev environment only
+  uv sync --group dev
+
+  # Or include nbdev tooling as well
+  # uv sync --group dev --group nbdev
     ```
 
     This will create a [virtual
@@ -126,7 +130,8 @@ For notebooks, make also sure you select the Kernel corresponding to the
 - To add a development only dependency:
 
   ``` sh
-  uv add --dev some_dev_dependency
+  # Add a dev-only dependency: (core dev group)
+  uv add --group dev some_dev_dependency
   ```
 
 - To remove a dependency:
@@ -138,13 +143,16 @@ For notebooks, make also sure you select the Kernel corresponding to the
 - To update a dependency:
 
   ``` sh
-  uv sync --upgrade-package some_dependency
+  uv sync --group dev --upgrade-package some_dependency
   ```
 
 - To upgrade ALL dependencies:
 
   ``` sh
-  uv sync --upgrade
+  # Upgrade all locked dependencies (core dev group installed)
+  uv sync --group dev --upgrade
+  # If you also use nbdev group
+  # uv sync --group dev --group nbdev --upgrade
   ```
 
 > 💡 Any time dependencies change, the file `uv.lock` will get
@@ -167,7 +175,10 @@ uv lock
 to regenerate the lockfile, and
 
 ``` sh
-uv sync
+# Core only
+uv sync --group dev
+# With notebooks
+uv sync --group dev --group nbdev
 ```
 
 to make sure the dependencies are installed in the virtual environment.

@@ -20,22 +20,27 @@ packages = ["src/jlp"]  # TEMPLATE: if no namespace -> ["src/{{ package_name }}"
 
 # Modern uv configuration (replaces deprecated [tool.uv.dev-dependencies])
 [dependency-groups]
+# Core dev tools that do not depend on nbdev notebooks
 dev = [
     "coverage>=7.6.1",
     "deptry>=0.20.0",
-    "ipykernel>=6.29.5",
     "mypy>=1.11.2",
-    "nbdev>=2.3.31",
-    "nbqa>=1.9.0",
     "poethepoet>=0.29.0",
     "pytest>=8.3.3",
     "ruff>=0.6.8",
     "setuptools>=75.2.0",
 ]
 
-# TEMPLATE: If separating concerns, you could split nbdev-only tooling:
-# nbdev = ["ipykernel>=6.29.5", "nbdev>=2.3.31", "nbqa>=1.9.0"]
-# and then sync with: uv sync --group dev --group nbdev
+# Notebook / nbdev specific tooling kept separate so projects can opt-out cleanly
+nbdev = [
+    "ipykernel>=6.29.5",
+    "nbdev>=2.3.31",
+    "nbqa>=1.9.0",
+]
+
+# INSTALL GUIDANCE (TEMPLATE):
+#   uv sync --group dev                # core tooling only
+#   uv sync --group dev --group nbdev  # include nbdev workflow
 
 [tool.ruff]
 line-length = 120

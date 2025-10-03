@@ -14,7 +14,7 @@ _exclude:
 
 # Post-copy tasks to initialize the project environment
 _tasks:
-  - "uv sync --all-extras --dev"
+  - "uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}"
   - "{% if use_nbdev %}uv run nbdev_export && uv run nbdev_readme{% endif %}"
 
 project_name:
