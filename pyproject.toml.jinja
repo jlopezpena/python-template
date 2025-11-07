@@ -131,6 +131,9 @@ exclude = [
 
 [tool.deptry.per_rule_ignores]
 DEP002 = ["setuptools"]
+{% if package_namespace %}
+DEP003 = ["{{ package_namespace }}"]
+{% endif %}
 DEP004 = []
 
 [tool.poe]
