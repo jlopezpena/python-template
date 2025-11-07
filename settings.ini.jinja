@@ -1,0 +1,26 @@
+{# nbdev settings file; excluded static settings.ini keeps template repo working #}
+{% if use_nbdev %}[DEFAULT]
+repo = {{ repo_name }}
+lib_name = %(repo)s
+min_python = {{ min_python_version }}
+user = {{ github_user }}
+
+doc_path = _docs
+{% if package_namespace %}
+lib_path = src/{{ package_namespace }}/{{ package_name }}
+{% else %}
+lib_path = src/{{ package_name }}
+{% endif %}
+nbs_path = nbs
+recursive = True
+tst_flags = notest
+put_version_in_init = False
+jupyter_hooks = True
+
+branch = main
+custom_sidebar = False
+doc_host = https://%(user)s.github.io
+doc_baseurl = /%(repo)s
+git_url = https://github.com/%(user)s/%(repo)s
+title = %(lib_name)s
+{% endif %}

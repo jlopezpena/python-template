@@ -1,2 +1,0 @@
-"""(Templated placeholder path)"""
-

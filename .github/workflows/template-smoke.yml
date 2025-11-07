@@ -1,0 +1,65 @@
+name: Template Smoke
+
+on:
+  push:
+    branches: ["feat/copier", "main"]
+  pull_request:
+    branches: ["feat/copier", "main"]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Install Copier
+        run: python -m pip install "copier>=9,<10"
+
+      - name: Render sample project (nbdev enabled)
+        run: copier copy --answers-file .copier-answers.sample.yml --trust . temp-nbdev
+
+      - name: Run checks for nbdev-enabled sample
+        run: |
+          cd temp-nbdev
+          uv sync --group dev --group nbdev
+          uv run poe check
+          uv run poe test
+
+      - name: Render sample project (nbdev disabled)
+        run: |
+          copier copy --trust \
+            -d project_name="Core Template" \
+            -d repo_name="core-template" \
+            -d package_namespace="" \
+            -d package_name="core_template" \
+            -d description="Core template smoke test" \
+            -d author_name="Template Maintainer" \
+            -d author_email="maintainer@example.com" \
+            -d github_user="template-maintainer" \
+            -d license="MIT" \
+            -d min_python_version="3.12" \
+            -d ci_python_versions='["3.12"]' \
+            -d use_nbdev=false \
+            -d use_devcontainer=false \
+            -d include_dependabot=false \
+            -d add_example_module=false \
+            -d enforce_coverage_100=false \
+            . temp-core
+
+      - name: Run checks for core sample
+        run: |
+          cd temp-core
+          uv sync --group dev
+          uv run poe check
+          uv run poe test
+
+      - name: Clean up
+        run: rm -rf temp-nbdev temp-core

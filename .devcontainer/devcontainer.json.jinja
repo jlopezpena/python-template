@@ -1,0 +1,28 @@
+{% if use_devcontainer %}{
+  "name": "{{ project_name }} Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": false
+    },
+    "ghcr.io/astral-sh/devcontainers-features/uv:2": {}
+  },
+  "postCreateCommand": "uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff"
+        {% if use_nbdev %}, "fastai.nbdev-vscode"{% endif %}
+      ]
+    }
+  }
+}
+{% endif %}

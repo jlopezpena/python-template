@@ -13,7 +13,7 @@ Migration is highly feasible because: - Centralized configuration (`pyproject.to
 Proposed variables (prompted unless noted as computed):
 
 | Variable | Purpose | Default / Derivation |
-|------------------|------------------|-------------------------------------|
+|------------------|------------------|------------------------------------|
 | project_name | Human friendly project name | "My Python Project" |
 | repo_name | Repository slug | slugify(project_name, dash) |
 | package_namespace | Optional top-level namespace | "jlp" (allow empty) |
@@ -132,7 +132,7 @@ _tasks:
 Scenarios to test:
 
 | Scenario | Namespace | nbdev | Devcontainer | Example Module | Expected |
-|----------|-----------|-------|--------------|----------------|----------|
+|-----------|----------|--------|------------|------------|----------------------|
 | Default | yes | yes | yes | yes | Full feature set builds & tests pass |
 | No namespace | no | yes | yes | yes | Imports adjust correctly |
 | No nbdev | yes | no | yes | yes | README hides nbdev, no nbdev deps |
@@ -191,3 +191,11 @@ For repos pre-dating template: 1. Manually create `.copier-answers.yml` with cho
 ------------------------------------------------------------------------
 
 Prepared: {{ date }}
+
+## 17. Status Snapshot – November 2025
+
+- Copier configuration, templated core assets (`pyproject.toml`, `settings.ini`, README, nbdev notebook, CI workflow) and optional files (devcontainer, Dependabot, LICENSE) are implemented with cleanup tasks.
+- Placeholder files remain in the template repository only and are excluded from generated projects via `_exclude` directives.
+- A template smoke CI workflow renders nbdev-enabled and minimal projects, running `uv run poe check` and `uv run poe test` on both.
+- Documentation now includes this migration plan plus `docs/design/template_usage_guide.md` describing day-to-day template operations.
+- Next focus areas: optional example module toggling, extending `_tasks` for additional combinations, and verifying downstream updates across real consumer repositories.

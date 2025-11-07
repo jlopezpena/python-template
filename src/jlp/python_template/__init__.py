@@ -6,7 +6,8 @@ TEMPLATE: values like project name and version will be parameterized by Copier i
 __all__: list[str] = []
 
 try:  # pragma: no cover - defensive import pattern
-    from importlib.metadata import PackageNotFoundError, version  # type: ignore
+    from importlib.metadata import PackageNotFoundError, version
+
     try:
         __version__ = version("python-template")  # TEMPLATE: {{ repo_name }}
     except PackageNotFoundError:  # pragma: no cover

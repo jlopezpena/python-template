@@ -1,0 +1,189 @@
+{#
+  This is the templated pyproject used for generated projects.
+  The repository keeps a static pyproject.toml (excluded via copier.yaml)
+  so that the template itself remains installable & testable.
+#}
+[project]
+name = "{{ repo_name }}"
+version = "0.1.0"  # You can bump manually or wire a versioning tool later
+description = "{{ description }}"
+readme = "README.md"
+requires-python = ">={{ min_python_version }}"
+license = "{{ license }}"
+authors = [
+  { name = "{{ author_name }}", email = "{{ author_email }}" }
+]
+dependencies = [
+  {# Add runtime dependencies here; keep empty list if none #}
+]
+
+[project.urls]
+repository = "https://github.com/{{ github_user }}/{{ repo_name }}"
+documentation = "https://github.com/{{ github_user }}/{{ repo_name }}"
+homepage = "https://github.com/{{ github_user }}/{{ repo_name }}"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+{% if package_namespace %}
+packages = ["src/{{ package_namespace }}"]
+{% else %}
+packages = ["src/{{ package_name }}"]
+{% endif %}
+
+[dependency-groups]
+dev = [
+    "coverage>=7.6.1",
+    "deptry>=0.20.0",
+    "mypy>=1.11.2",
+    "poethepoet>=0.29.0",
+    "pytest>=8.3.3",
+    "ruff>=0.6.8",
+    "setuptools>=75.2.0",
+]
+{% if use_nbdev %}
+nbdev = [
+    "ipykernel>=6.29.5",
+    "nbdev>=2.3.31",
+    "nbqa>=1.9.0",
+]
+{% endif %}
+
+[tool.ruff]
+line-length = 120
+target-version = "py{{ min_python_version | replace('.', '') }}"
+output-format = "concise"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "PD", "PERF", "UP", "C4"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{ package_namespace if package_namespace else package_name }}"]
+
+[tool.coverage.run]
+source = ["src", "tests"]
+relative_files = true
+concurrency = ["multiprocessing", "thread"]
+disable_warnings = ["no-data-collected"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = {{ 100 if enforce_coverage_100 else 85 }}
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "@overload",
+    "^\\s+\\.\\.\\.\\s*$",
+    "except ImportError",
+    "raise NotImplementedError",
+    "raise AssertionError",
+    "assert False",
+    "raise RuntimeError",
+    "def __repr__",
+]
+
+[tool.mypy]
+mypy_path = "src"
+strict = true
+platform = "linux"
+explicit_package_bases = true
+show_column_numbers = true
+allow_redefinition = true
+
+[[tool.mypy.overrides]]
+module = [
+    "fastcore.*",
+    {% if use_nbdev %}"nbdev.*",{% endif %}
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["docs", "tests"]
+console_output_style = "classic"
+addopts = "--show-capture stdout --tb native --doctest-glob='*.rst' --doctest-modules --import-mode=importlib"
+
+[tool.deptry]
+exclude = [
+    "node_modules",
+    "venv",
+    ".venv",
+    ".direnv",
+    "tests",
+    ".git",
+    ".zen",
+    ".ruffcache",
+    ".github",
+    "scratch",
+    {% if use_nbdev %}"nbs"{% endif %}
+]
+
+[tool.deptry.per_rule_ignores]
+DEP002 = ["setuptools"]
+DEP004 = []
+
+[tool.poe]
+verbosity = 0
+
+[tool.poe.tasks]
+{% if use_nbdev %}
+_nb_check_format = "uv run ruff format nbs --check"
+_nb_clean = "uv run nbdev_clean"
+_nb_format = "uv run ruff format nbs"
+_nb_test = "uv run nbdev_test"
+_nb_export = "uv run nbdev_export"
+_nb_readme = "uv run nbdev_readme"
+{% endif %}
+_pytest = "uv run pytest"
+_ruff = "uv run ruff check --output-format=concise"
+_check_format = "uv run ruff format --diff"
+_mypy = "uv run mypy ."
+_format = "uv run ruff format"
+_sync = "uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}"
+_deptry = "uv run deptry ."
+
+[tool.poe.tasks.check]
+help = "Run all checks"
+sequence = [
+    {% if use_nbdev %}"_nb_check_format",{% endif %}
+    "_check_format",
+    "_ruff",
+    "_deptry",
+    "_mypy"
+]
+
+[tool.poe.tasks.clean]
+help = "Remove temporary files"
+cmd = """
+rm -rf .coverage \
+       .mypy_cache \
+       .pytest_cache \
+       ./**/__pycache__ \
+       _proc \
+       .ruff_cache
+"""
+
+[tool.poe.tasks.format]
+help = "Reformat project"
+sequence = [
+    {% if use_nbdev %}"_nb_format",{% endif %}
+    "_format"
+]
+
+[tool.poe.tasks.sync]
+help = "Full sync pipeline"
+sequence = [
+    {% if use_nbdev %}"_nb_clean", "_nb_format", "_nb_readme", "_nb_export",{% endif %}
+    "_format",
+    "_sync",
+    "clean"
+]
+
+[tool.poe.tasks.test]
+help = "Run tests"
+sequence = [
+    {% if use_nbdev %}"_nb_test",{% endif %}
+    "_pytest"
+]

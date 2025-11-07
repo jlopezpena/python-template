@@ -140,14 +140,14 @@ DEP004 = [
 verbosity = 0
 
 [tool.poe.tasks]
-# Hidden subtasks for Poe. Tasks starting with "_" cannot be executed directly, just used as part of other tasks
-# nbdev related tasks
-_nb_check_format = "uv run ruff format nbs --check"
-_nb_clean = "uv run nbdev_clean"
-_nb_format = "uv run ruff format nbs"
-_nb_test = "uv run nbdev_test"
-_nb_export = "uv run nbdev_export"
-_nb_readme = "uv run nbdev_readme"
+# Hidden subtasks for Poe. Tasks starting with "_" cannot be executed directly.
+# nbdev related tasks (conditionally present when nbdev is enabled in template)
+_nb_check_format = "uv run ruff format nbs --check"  # TEMPLATE: remove if no nbdev
+_nb_clean = "uv run nbdev_clean"  # TEMPLATE: remove if no nbdev
+_nb_format = "uv run ruff format nbs"  # TEMPLATE: remove if no nbdev
+_nb_test = "uv run nbdev_test"  # TEMPLATE: remove if no nbdev
+_nb_export = "uv run nbdev_export"  # TEMPLATE: remove if no nbdev
+_nb_readme = "uv run nbdev_readme"  # TEMPLATE: remove if no nbdev
 # Pytest
 _pytest = "uv run pytest"
 # Linting
@@ -157,14 +157,14 @@ _mypy = "uv run mypy ."
 # Formatting
 _format = "uv run ruff format"
 # UV tasks
-_sync = "uv sync --all-extras"
+_sync = "uv sync --group dev"  # TEMPLATE: optionally add --group nbdev
 # deptry
 _deptry = "uv run deptry ."
 
 [tool.poe.tasks.check]
-    help = "Run all the checks for file formatting, linting, typing, and dependency validation"
+    help = "Run all checks (format, lint, deps, mypy, nb format if enabled)"  # TEMPLATE: If nbdev disabled remove _nb_check_format
     sequence = [
-        "_nb_check_format",
+        "_nb_check_format",  # TEMPLATE: drop if no nbdev
         "_check_format",
         "_ruff",
         "_deptry",
@@ -184,27 +184,27 @@ _deptry = "uv run deptry ."
   """
 
 [tool.poe.tasks.format]
-    help = "Reformat all notebooks and python files"
+    help = "Reformat source (and notebooks if nbdev enabled)"  # TEMPLATE: If nbdev disabled remove _nb_format
     sequence = [
-        "_nb_format",
+        "_nb_format",  # TEMPLATE: drop if no nbdev
         "_format"
     ]
 
 [tool.poe.tasks.sync]
-    help = "Full package synchronisation: runs notebook cleaning and formatting, exports library and readme files, regenerates lockfile and update virtual environment"
+    help = "Full sync: format (nb + src if enabled), export, readme, lock refresh, cleanup"  # TEMPLATE: Drop nbdev steps if disabled
     sequence = [
-        "_nb_clean",
-        "_nb_format",
-        "_nb_readme",
-        "_nb_export",
+        "_nb_clean",   # TEMPLATE: drop if no nbdev
+        "_nb_format",  # TEMPLATE: drop if no nbdev
+        "_nb_readme",  # TEMPLATE: drop if no nbdev
+        "_nb_export",  # TEMPLATE: drop if no nbdev
         "_format",
         "_sync",
         "clean"
     ]
 
 [tool.poe.tasks.test]
-    help = "Run testsuite, including both notebook tests and pytest"
+    help = "Run tests (pytest + nbdev tests if enabled)"  # TEMPLATE: Drop _nb_test if nbdev disabled
     sequence = [
-        "_nb_test", 
+        "_nb_test",  # TEMPLATE: drop if no nbdev
         "_pytest"
     ]
