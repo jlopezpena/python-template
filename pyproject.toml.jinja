@@ -55,12 +55,20 @@ nbdev = [
 line-length = 120
 target-version = "py{{ min_python_version | replace('.', '') }}"
 output-format = "concise"
+extend-exclude = [
+    "src/**/_modidx.py"
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "PD", "PERF", "UP", "C4"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["{{ package_namespace if package_namespace else package_name }}"]
+
+[tool.ruff.format]
+exclude = [
+    "src/**/_modidx.py"
+]
 
 [tool.coverage.run]
 source = ["src", "tests"]
@@ -117,7 +125,8 @@ exclude = [
     ".ruffcache",
     ".github",
     "scratch",
-    {% if use_nbdev %}"nbs"{% endif %}
+    {% if use_nbdev %}"nbs",
+    "_proc"{% endif %}
 ]
 
 [tool.deptry.per_rule_ignores]

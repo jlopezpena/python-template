@@ -12,8 +12,6 @@ _exclude:
   - ".ruff_cache/"
   - "_proc/"
   - ".coverage*"
-  - "README.md" # Generated (nbdev) or rendered from Jinja
-  - "pyproject.toml" # Use templated pyproject.toml.jinja instead
   - ".devcontainer/devcontainer.json" # Use templated devcontainer.json.jinja instead
   - ".devcontainer/Dockerfile" # Use templated Dockerfile.jinja instead
   - ".github/dependabot.yml" # Use templated dependabot.yml.jinja instead

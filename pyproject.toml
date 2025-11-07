@@ -46,12 +46,20 @@ nbdev = [
 line-length = 120
 target-version = "py312"
 output-format = "concise"  # Works better for CI
+extend-exclude = [
+    "src/**/_modidx.py"
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "PD", "PERF", "UP", "C4"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["jlp"]
+
+[tool.ruff.format]
+exclude = [
+    "src/**/_modidx.py"
+]
 
 [tool.coverage.run]
 source = ["src", "tests"]
@@ -124,7 +132,8 @@ exclude = [
     ".ruffcache",
     ".github",
     "scratch",
-    "nbs"  # We will run separate checks for notebooks
+    "nbs",  # We will run separate checks for notebooks
+    "_proc"
 ]
 
 [tool.deptry.per_rule_ignores]

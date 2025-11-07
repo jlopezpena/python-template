@@ -27,18 +27,21 @@
     {
       "cell_type": "code",
       "metadata": {"language": "python"},
+      "execution_count": null,
+      "outputs": [],
       "source": [
         "# Quick smoke test (safe to remove)\n",
         "try:\n",
 {% if add_example_module %}
-        "    from {{ module_root }}.hello import say_hi  # type: ignore\n",
-        "    print(say_hi('notebook'))\n",
+  "    from {{ module_root }}.hello import say_hi  # type: ignore\n",
+  "\n",
+  "    print(say_hi(\"notebook\"))\n",
 {% else %}
-        "    __import__('{{ module_root }}')\n",
-        "    print('Package import succeeded')\n",
+  "    __import__('{{ module_root }}')\n",
+  "    print(\"Package import succeeded\")\n",
 {% endif %}
-        "except Exception as e:\n",
-        "    print('Example module not available:', e)\n"
+  "except Exception as e:\n",
+  "    print(\"Example module not available:\", e)"
       ]
     }
   ],
