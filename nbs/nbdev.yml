@@ -1,25 +1,25 @@
 project:
-	type: website
-	preview:
-		port: 3000
-		browser: true
-	output-dir: ../_docs
+  type: website
+  preview:
+    port: 3000
+    browser: true
+  output-dir: ../_docs
 
 website:
-	title: "Python Template"
-	description: "Python project template for research acceleration"
-	site-url: "https://jlopezpena.github.io/python-template/"
-	repo-url: "https://github.com/jlopezpena/python-template"
-	repo-actions: [issue, edit]
-	sidebar:
-		style: floating
-		search: true
-		contents:
-			- text: Home
-				href: index.ipynb
+  title: "Python Template"
+  description: "Python project template for research acceleration"
+  site-url: "https://jlopezpena.github.io/python-template/"
+  repo-url: "https://github.com/jlopezpena/python-template"
+  repo-actions: [issue, edit]
+  sidebar:
+    style: floating
+    search: true
+    contents:
+      - text: Home
+        href: index.ipynb
 
 format:
-	html:
-		theme: cosmo
-		toc: true
-		number-sections: false
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: false

@@ -21,6 +21,7 @@ _exclude:
   - ".github/workflows/check.yml" # Use templated check.yml.jinja instead
   - ".github/workflows/template-smoke.yml" # Template repo only
   - "src/jlp/python_template/**" # Template repo placeholder package
+  - "temp-*" # Smoke-test outputs generated during CI
 
 # Post-copy tasks to initialize the project environment
 _tasks:
