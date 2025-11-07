@@ -1,26 +1,34 @@
-{# nbdev settings file; excluded static settings.ini keeps template repo working #}
-{% if use_nbdev %}[DEFAULT]
+{# nbdev settings for generated projects. This file only renders when nbdev is enabled. #}
+{% if use_nbdev -%}
+[DEFAULT]
 repo = {{ repo_name }}
-lib_name = %(repo)s
-min_python = {{ min_python_version }}
-user = {{ github_user }}
-
-doc_path = _docs
-{% if package_namespace %}
+{% if package_namespace -%}lib_name = {{ package_namespace }}.{{ package_name }}
 lib_path = src/{{ package_namespace }}/{{ package_name }}
-{% else %}
+{% else -%}lib_name = {{ package_name }}
 lib_path = src/{{ package_name }}
 {% endif %}
+branch = main
+version = 0.1.0
+min_python = {{ min_python_version }}
+author = {{ author_name }}
+author_email = {{ author_email }}
+description = {{ description }}
+license = {{ license }}
+status = 2
+audience = Developers
+language = English
+doc_path = _docs
 nbs_path = nbs
-recursive = True
+custom_sidebar = False
+doc_host = https://{{ github_user }}.github.io
+doc_baseurl = /{{ repo_name }}
+git_url = https://github.com/{{ github_user }}/{{ repo_name }}
+title = {{ project_name }}
+keywords =
 tst_flags = notest
+recursive = False
 put_version_in_init = False
 jupyter_hooks = True
-
-branch = main
-custom_sidebar = False
-doc_host = https://%(user)s.github.io
-doc_baseurl = /%(repo)s
-git_url = https://github.com/%(user)s/%(repo)s
-title = %(lib_name)s
-{% endif %}
+lib_key =
+nbs_key =
+{% endif -%}

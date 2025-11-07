@@ -1,16 +1,18 @@
 {% set module_root = package_namespace + '.' + package_name if package_namespace else package_name %}
+{% set readme_block -%}
+# {{ project_name }}
+
+<!-- This notebook is the authoritative source for the README when nbdev is enabled. -->
+
+{% include 'template_parts/readme_common.md.jinja' %}
+{% endset %}
+{% set readme_lines = readme_block.splitlines(True) %}
 {
   "cells": [
     {
       "cell_type": "markdown",
       "metadata": {"language": "markdown"},
-      "source": [
-        "# {{ project_name }}\n",
-        "\n",
-        "<!-- This notebook is the authoritative source for the README when nbdev is enabled. -->\n",
-        "\n",
-        "{% include 'template_parts/readme_common.md.jinja' %}\n"
-      ]
+      "source": {{ readme_lines | tojson }}
     },
     {
       "cell_type": "markdown",

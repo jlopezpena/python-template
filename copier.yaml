@@ -13,9 +13,7 @@ _exclude:
   - "_proc/"
   - ".coverage*"
   - "README.md" # Generated (nbdev) or rendered from Jinja
-  - "nbs/index.ipynb" # Generated from Jinja source when copying
   - "pyproject.toml" # Use templated pyproject.toml.jinja instead
-  - "settings.ini" # Use templated settings.ini.jinja instead
   - ".devcontainer/devcontainer.json" # Use templated devcontainer.json.jinja instead
   - ".devcontainer/Dockerfile" # Use templated Dockerfile.jinja instead
   - ".github/dependabot.yml" # Use templated dependabot.yml.jinja instead
