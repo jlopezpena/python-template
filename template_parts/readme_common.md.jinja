@@ -85,10 +85,11 @@ Key tasks:
 
 ### ✨ Usage
 
+{% set package_root = package_namespace + "." + package_name if package_namespace else package_name %}
 {% if add_example_module %}Example:
 ```python
-from {{ package_namespace }}.{{ package_name }} import hello  # or direct import of symbols
-from {{ package_namespace }}.{{ package_name }}.hello import say_hi
+from {{ package_root }}.hello import say_hi
+
 print(say_hi("world"))
 ```
 {% else %}Add modules under `src/` and expose them via the package `__init__.py`.

@@ -1,3 +1,4 @@
+{% set module_root = package_namespace + '.' + package_name if package_namespace else package_name %}
 {
   "cells": [
     {
@@ -27,8 +28,13 @@
       "source": [
         "# Quick smoke test (safe to remove)\n",
         "try:\n",
-        "    from {{ package_namespace }}.{{ package_name }}.hello import say_hi  # type: ignore\n",
+{% if add_example_module %}
+        "    from {{ module_root }}.hello import say_hi  # type: ignore\n",
         "    print(say_hi('notebook'))\n",
+{% else %}
+        "    __import__('{{ module_root }}')\n",
+        "    print('Package import succeeded')\n",
+{% endif %}
         "except Exception as e:\n",
         "    print('Example module not available:', e)\n"
       ]

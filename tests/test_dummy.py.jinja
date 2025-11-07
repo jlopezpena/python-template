@@ -1,0 +1,10 @@
+{% if add_example_module -%}
+{# Basic smoke test for the optional example module. #}
+{%- set module_root = package_namespace + "." + package_name if package_namespace else package_name -%}
+from {{ module_root }}.hello import say_hi
+
+
+def test_dummy() -> None:
+    greet = say_hi("world")
+    assert greet == "Hi, world"
+{%- endif %}

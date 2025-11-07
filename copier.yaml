@@ -21,6 +21,9 @@ _exclude:
   - ".github/dependabot.yml" # Use templated dependabot.yml.jinja instead
   - ".github/workflows/check.yml" # Use templated check.yml.jinja instead
   - ".github/workflows/template-smoke.yml" # Template repo only
+  - "src/jlp/python_template/**" # Template repo placeholder package
+  - "tests/test_dummy.py" # Template repo placeholder test
+  - "tests/test_import.py" # Template repo placeholder test
 
 # Post-copy tasks to initialize the project environment
 _tasks:
