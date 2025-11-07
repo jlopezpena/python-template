@@ -1,7 +1,6 @@
-from jlp.python_template.hello import say_hi
+from jlp.python_template.hello import say_hi  # TEMPLATE: optional module
 
 
 def test_dummy() -> None:
-    """Dummy test for checking that CI works"""
     greet = say_hi("world")
     assert greet == "Hi, world"

@@ -1,0 +1,25 @@
+############################################################
+# Git attributes for the template repository
+#
+# Purpose:
+#  - Reduce noisy diffs for placeholder or generated files
+#  - Treat notebooks as binary to avoid merge conflicts unless
+#    a notebook diff tool is configured locally.
+#  - Flag placeholder files that are excluded in Copier output.
+############################################################
+
+# Treat Jupyter notebooks as binary by default (safer merges)
+*.ipynb binary
+
+# Placeholder files in the template repo only (excluded / replaced in generated projects)
+README.md linguist-generated
+settings.ini linguist-generated
+nbs/index.ipynb linguist-generated
+.devcontainer/devcontainer.json linguist-generated
+.github/dependabot.yml linguist-generated
+
+# Normalize line endings
+* text=auto eol=lf
+
+# Keep executable bits for shell scripts if any are added later
+*.sh eol=lf

@@ -1,3 +1,5 @@
+{# Quarto configuration for nbdev sites and README rendering. #}
+{% if use_nbdev -%}
 project:
   type: website
   preview:
@@ -6,10 +8,10 @@ project:
   output-dir: ../_docs
 
 website:
-  title: "Python Template"
-  description: "Python project template for research acceleration"
-  site-url: "https://jlopezpena.github.io/python-template/"
-  repo-url: "https://github.com/jlopezpena/python-template"
+  title: "{{ project_name }}"
+  description: "{{ description }}"
+  site-url: "https://{{ github_user }}.github.io/{{ repo_name }}/"
+  repo-url: "https://github.com/{{ github_user }}/{{ repo_name }}"
   repo-actions: [issue, edit]
   sidebar:
     style: floating
@@ -23,3 +25,4 @@ format:
     theme: cosmo
     toc: true
     number-sections: false
+{% endif -%}

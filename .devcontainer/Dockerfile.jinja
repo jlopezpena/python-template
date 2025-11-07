@@ -1,0 +1,10 @@
+{% if use_devcontainer %}FROM mcr.microsoft.com/devcontainers/base:noble
+
+# Install uv (binary copied from official image)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+# Ensure git is available for Copier-driven projects
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
+{% endif %}

@@ -1,0 +1,19 @@
+{#- Ensure the generated package can be imported regardless of namespace choice. -#}
+{%- if package_namespace -%}
+{%- set direct_import = "from " + package_namespace + " import " + package_name + " as pkg" -%}
+{%- else -%}
+{%- set direct_import = "import " + package_name + " as pkg" -%}
+{%- endif -%}
+
+import importlib
+
+
+def test_import() -> None:
+    pkg = importlib.import_module("{{ package_namespace + "." + package_name if package_namespace else package_name }}")
+    assert pkg is not None
+
+
+def test_package_import_direct() -> None:
+    {{ direct_import }}
+
+    assert pkg is not None

@@ -1,0 +1,23 @@
+# Sample answers file for this template (do not commit as active answers unless using Copier locally)
+# Copy to .copier-answers.yml and adjust values when generating a new project or updating.
+
+# Template metadata (managed by Copier)
+# _commit: <filled by copier>
+# _src_path: <filled by copier>
+
+project_name: My Python Project
+repo_name: my-python-project
+package_namespace: jlp
+package_name: my_python_project
+description: Add your awesome description here
+author_name: Your Name
+author_email: you@example.com
+github_user: yourgithub
+license: MIT
+min_python_version: "3.12"
+ci_python_versions: ["3.12"]
+use_nbdev: true
+use_devcontainer: true
+include_dependabot: true
+add_example_module: true
+enforce_coverage_100: true

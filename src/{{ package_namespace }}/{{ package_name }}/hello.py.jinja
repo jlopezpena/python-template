@@ -1,0 +1,10 @@
+{% if add_example_module -%}
+"""Example module demonstrating optional template content."""
+
+from __future__ import annotations
+
+
+def say_hi(name: str) -> str:
+    """Return a friendly greeting."""
+    return f"Hi, {name}"
+{%- endif %}

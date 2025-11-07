@@ -1,0 +1,60 @@
+{% set module_root = package_namespace + '.' + package_name if package_namespace else package_name %}
+{% set readme_block -%}
+# {{ project_name }}
+
+<!-- This notebook is the authoritative source for the README when nbdev is enabled. -->
+
+{% include 'template_parts/readme_common.md.jinja' %}
+{% endset %}
+{% set readme_lines = readme_block.splitlines(True) %}
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {"language": "markdown"},
+      "source": {{ readme_lines | tojson }}
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {"language": "markdown"},
+      "source": [
+        "## nbdev Notes\n",
+        "This section is only present when nbdev is enabled.\n",
+        "- Edit this notebook, then run: `uv run nbdev_readme` to regenerate the README.\n",
+        "- Use `uv run nbdev_export` to sync code from notebooks to the library.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {"language": "python"},
+      "execution_count": null,
+      "outputs": [],
+      "source": [
+        "# Quick smoke test (safe to remove)\n",
+        "try:\n",
+{% if add_example_module %}
+  "    from {{ module_root }}.hello import say_hi  # type: ignore\n",
+  "\n",
+  "    print(say_hi(\"notebook\"))\n",
+{% else %}
+  "    __import__('{{ module_root }}')\n",
+  "    print(\"Package import succeeded\")\n",
+{% endif %}
+  "except Exception as e:\n",
+  "    print(\"Example module not available:\", e)"
+      ]
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

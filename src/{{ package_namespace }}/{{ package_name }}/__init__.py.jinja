@@ -1,0 +1,19 @@
+{#- Template package initializer for namespaced projects. -#}
+"""Top-level package for {{ repo_name }}."""
+
+from __future__ import annotations
+
+from importlib.metadata import PackageNotFoundError, version
+
+{% if add_example_module -%}
+from .hello import say_hi
+
+__all__ = ["say_hi"]
+{% else -%}
+__all__ = []
+{%- endif %}
+
+try:
+    __version__ = version("{{ repo_name }}")
+except PackageNotFoundError:  # pragma: no cover - happens for editable installs
+    __version__ = "0.0.0"

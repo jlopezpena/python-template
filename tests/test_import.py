@@ -1,7 +1,5 @@
-# Verify that our module can be installed...
-
-import jlp.python_template as pt
+import jlp.python_template as pkg  # TEMPLATE: conditional import path
 
 
 def test_import() -> None:
-    assert pt is not None
+    assert pkg is not None
