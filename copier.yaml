@@ -4,6 +4,9 @@ _templates_suffix: ".jinja"
 
 # Exclude generated or environment-specific artifacts from copy/update
 _exclude:
+  - ".git"
+  - ".git/"
+  - ".gitmodules"
   - "uv.lock"
   - "index_files/"
   - "src/**/_modidx.py"
@@ -21,6 +24,7 @@ _exclude:
 
 # Post-copy tasks to initialize the project environment
 _tasks:
+  - "rm -rf .git"
   - "uv sync --group dev{% if use_nbdev %} --group nbdev{% endif %}"
   - "{% if use_nbdev %}uv run nbdev_export && uv run nbdev_readme{% endif %}"
   - "{% if not use_nbdev %}rm -f settings.ini nbs/index.ipynb{% endif %}"
