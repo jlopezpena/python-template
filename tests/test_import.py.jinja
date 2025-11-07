@@ -2,8 +2,17 @@
 import importlib
 
 
-{%- set import_target = package_namespace + "." + package_name if package_namespace else package_name -%}
+{% set import_target = package_namespace + "." + package_name if package_namespace else package_name %}
 
 def test_import() -> None:
     pkg = importlib.import_module("{{ import_target }}")
+    assert pkg is not None
+
+
+def test_package_import_direct() -> None:
+{% if package_namespace %}
+    from {{ package_namespace }} import {{ package_name }} as pkg
+{% else %}
+    import {{ package_name }} as pkg
+{% endif %}
     assert pkg is not None
