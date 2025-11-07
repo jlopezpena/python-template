@@ -10,14 +10,22 @@ Core configuration lives in `pyproject.toml` (dependencies, tooling). {% if use_
 
 ### 🛠️ Tooling
 
-- [`uv`](https://docs.astral.sh/uv/) for dependency & environment management
-- [`ruff`](https://docs.astral.sh/ruff/) for linting/formatting
-- [`pytest`](https://docs.pytest.org/) + [`coverage`](https://coverage.readthedocs.io/) for tests
-- [`mypy`](https://www.mypy-lang.org/) for type checking
-- [`deptry`](https://deptry.com/) for dependency hygiene
-- [`Poe`](https://poethepoet.natn.io/) as task runner
-{% if use_nbdev %}- [`nbdev`](https://nbdev.fast.ai/) for literate programming & docs
-- [`nbQA`](https://nbqa.readthedocs.io/) for notebook QA
+- `uv` — dependency & environment management
+	Docs: <https://docs.astral.sh/uv/>
+- `ruff` — linting/formatting
+	Docs: <https://docs.astral.sh/ruff/>
+- `pytest` + `coverage` — tests
+	Docs: <https://docs.pytest.org/>, <https://coverage.readthedocs.io/>
+- `mypy` — type checking
+	Docs: <https://www.mypy-lang.org/>
+- `deptry` — dependency hygiene
+	Docs: <https://deptry.com/>
+- `Poe` — task runner
+	Docs: <https://poethepoet.natn.io/>
+{% if use_nbdev %}- `nbdev` — literate programming & docs
+	Docs: <https://nbdev.fast.ai/>
+- `nbQA` — notebook QA
+	Docs: <https://nbqa.readthedocs.io/>
 {% endif %}
 
 ### 🚀 Quick Start
